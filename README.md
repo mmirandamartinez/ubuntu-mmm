@@ -1,6 +1,6 @@
 # Ubuntu MMM — Simulación de Escritorio Web
 
-![Escritorio Ubuntu MMM](assets/img/ubuntu.webp)
+![Escritorio Ubuntu MMM](assets/img/content/ubuntu.webp)
 
 Experiencia de escritorio totalmente interactiva construida íntegramente con **HTML, CSS y JavaScript puro**. Sin frameworks ni dependencias externas.
 
