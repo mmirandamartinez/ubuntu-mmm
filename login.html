@@ -1,0 +1,82 @@
+<!-- 
+  login.html
+  Ubuntu MMM — Simulación de Escritorio Web
+
+  Pantalla de bloqueo/inicio de sesión. Punto de entrada de la aplicación.
+  Solicita contraseña antes de acceder al escritorio (ubuntu.html).
+
+  Autor: Manuel Miranda Martínez
+  https://mmirandamartinez.com
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Ubuntu</title>
+    <link rel="icon" href="assets/img/icons/mmm.ico" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap');
+
+        body {
+            background: #2C001E;
+            font-family: 'Ubuntu', sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .login-container {
+            width: 320px; 
+            background: linear-gradient(135deg, #3d3d3d00, #4d4d4d00); 
+            padding: 30px;
+            border-radius: 12px; 
+        }
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            background: #a7a7a72d;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 900;
+        }
+
+        .login-container input[type="submit"]:hover {
+            background: #cf431b;
+        }
+
+        .login-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="assets/img/icons/perfil.png" alt="Logo de Ubuntu" width="200" height="200" style="display: block; margin: 0 auto;">
+        
+        <form action="ubuntu" method="post">
+            <h1> mmm </h1>
+            <br>
+            <!-- Contraseña abierta: se acepta cualquier valor para facilitar pruebas y evitar bloqueo -->
+            <input type="password" name="password" placeholder="Contraseña">
+        </form>
+    </div>
+    <br>
+    <img src="assets/img/icons/contraseña.png" alt="Logo de Ubuntu" width="140" height="140" style="position: fixed; bottom: 20px; right: 20px;">
+
+</body>
+</html>

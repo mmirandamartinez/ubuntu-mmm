@@ -1,0 +1,718 @@
+<!-- 
+  ubuntu.html
+  Ubuntu MMM — Simulación de escritorio
+
+  Vista principal del escritorio. Carga todas las apps, el dock, la barra superior y el entorno.
+  Requiere login.html como punto de entrada.
+
+  Autor: Manuel Miranda Martínez
+  https://mmirandamartinez.com
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubuntu MMM</title>
+
+    <!-- Fuentes externas -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/editor/editor.main.css">
+
+    <!-- Estilos propios — escritorio y barra superior -->
+    <link rel="stylesheet" href="assets/css/ubuntu.css">
+
+    <!-- Estilos propios — aplicaciones -->
+    <link rel="stylesheet" href="assets/css/apps.css">
+    <link rel="stylesheet" href="assets/css/calculadora.css">
+    <link rel="stylesheet" href="assets/css/calendario.css">
+    <link rel="stylesheet" href="assets/css/carpeta.css">
+    <link rel="stylesheet" href="assets/css/discord.css">
+    <link rel="stylesheet" href="assets/css/monitor.css">
+    <link rel="stylesheet" href="assets/css/navegador.css">
+    <link rel="stylesheet" href="assets/css/settings.css">
+    <link rel="stylesheet" href="assets/css/snake.css">
+    <link rel="stylesheet" href="assets/css/spotify.css">
+    <link rel="stylesheet" href="assets/css/tareas.css">
+    <link rel="stylesheet" href="assets/css/terminal.css">
+    <link rel="stylesheet" href="assets/css/tetris.css">
+    <link rel="stylesheet" href="assets/css/tienda.css">
+
+    <!-- Icono y metadatos SEO -->
+    <link rel="icon" href="assets/img/icons/mmm.ico" type="image/x-icon">
+    <link rel="canonical" href="https://mmirandamartinez.com/ubuntu" />
+</head>
+<body>
+
+<!-- Interfaz principal de escritorio Ubuntu MMM -->
+
+<!-- Header izquierdo -->
+    <header class="header">
+        <div class="top-icons">
+            <a href="#" class="icon" id="firefoxIcon">
+                <img src="assets/img/icons/Firefox.png" alt="Firefox">
+            </a>
+            <a href="#" class="icon" id="folderIcon">
+                <img src="assets/img/icons/carpeta.png" alt="Carpeta">
+            </a>
+            <a href="#" class="icon">
+                <img src="assets/img/icons/terminal.png" alt="Terminal">
+            </a>
+            <a href="#" class="icon" id="tasksIcon">
+                <img src="assets/img/icons/tarea.png" alt="Tareas">
+            </a>
+            <a href="#" class="icon" id="storeIcon">
+                <img src="assets/img/icons/tienda.png" alt="Tienda">
+            </a>
+
+            <a href="#" class="icon" id="tetrisIcon" style="display:none;">
+                <img src="assets/img/icons/tetris.png" alt="Tetris">
+            </a>
+        </div>
+        <div class="bottom-icons">
+            <div class="grid-icon">
+                <img src="assets/img/icons/puntitos.png" alt="puntos">
+            </div>
+        </div>
+    </header>
+
+<!-- Barra superior / Panel de actividad -->
+
+<!-- Header superior -->
+    <header2 class="header2">
+        <p style="display: block; text-align: left; font-size: 1.0em; margin-top: 10px; color: rgb(216, 216, 216);"> Actividad</p>
+        <time class="time" style="display: block; text-align: center; font-size: 1.0em; margin-top: 10px;">
+        </time>
+
+        <div class="calendar" id="calendar">
+            <div class="calendar-header">
+                <span class="prev">&lt;</span>
+                <span class="month-year"></span>
+                <span class="next">&gt;</span>
+            </div>
+            <div class="calendar-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Do</th>
+                            <th>Lu</th>
+                            <th>Ma</th>
+                            <th>Mi</th>
+                            <th>Ju</th>
+                            <th>Vi</th>
+                            <th>Sa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="volume-image">
+             <img src="assets/img/icons/volumen.png" alt="Volumen">
+        </div>
+
+        <div class="power-menu">
+            <div class="power-icon">
+                <img src="assets/img/icons/power.png" alt="Power">
+            </div>
+            <div class="submenu">
+                <ul>
+                    <li><a href="#">Apagar</a></li>
+                    <li><a href="#">Reiniciar</a></li>
+                    <li><a href="#">Suspender</a></li>
+                    <li><a href="#">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </header2>
+
+
+<!-- Módulos de aplicaciones modales: Terminal, Power, Tareas, Firefox, etc. -->
+
+<!-- Terminal -->
+    <div class="terminal-modal" id="terminalModal">
+        <div class="terminal-modal-header">
+            Terminal
+            <span id="terminal-close" class="terminal-close" style="cursor: pointer; float: right;">&times;</span>
+        </div>
+        <div class="terminal-modal-body">
+            <div class="terminal-output"></div>
+            <input type="text" id="terminal-input" placeholder="Escribe un comando..." autocomplete="off">
+        </div>
+    </div>
+
+<!--Opciones de apagado etc-->
+    <div class="power-modal" id="powerModal">
+        <div class="power-modal-content">
+            <div class="power-modal-header">
+            </div>
+            <div class="power-modal-body">
+                <h3 id="power-modal-message">¿Desea continuar?</h3>
+                <div class="power-modal-actions">
+                    <button id="power-modal-confirm">Aceptar</button>
+                    <button id="power-modal-cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--Tareas-->
+    <div class="tasks-modal" id="tasksModal">
+        <div class="tasks-modal-content">
+            <div class="tasks-modal-header">
+             Tienes Tareas
+                <span id="tasks-modal-close" class="tasks-close">&times;</span>
+            </div>
+            <div class="tasks-modal-body">
+                <ul id="tasks-list">
+
+                </ul>
+                <input type="text" id="new-task" class="input-task" placeholder="Nueva tarea...">
+            </div>
+        </div>
+    </div>
+
+<!--Firefox-->
+    <div class="firefox-modal" id="firefoxModal" style="display: none;">
+        <div class="firefox-modal-header">
+            Firefox
+            <span id="firefox-close" class="firefox-close">&times;</span>
+        </div>
+        <div class="firefox-modal-search">
+            <div class="firefox-brand">
+                <img src="assets/img/icons/Firefox.png" alt="Firefox Logo">
+                <span>Firefox</span>
+            </div>
+            <input type="text" id="firefox-search-input" placeholder="Ingresa la URL a buscar...">
+            <button id="firefox-search-button">Buscar</button>
+            <div class="hamburger-container">
+                <div class="hamburger-menu">&#9776;</div>
+                <div class="favorite-pages" id="favoritePages">
+                    <ul>
+                        <li class="fav-title">Páginas Favoritas:</li>
+                        <li><a href="https://mmirandamartinez.com/" target="_blank">Portfolio</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="firefox-modal-body">
+            <iframe id="firefox-frame" src="https://mmirandamartinez.com/" frameborder="0"></iframe>
+        </div>
+    </div>
+
+<!--capeta-->
+    <div class="files-modal" id="filesModal" style="display: none;">
+        <div class="files-modal-content">
+            <div class="files-modal-header">
+                Administrar Archivos
+                <span id="files-modal-close" class="files-close">&times;</span>
+            </div>
+            <div class="files-modal-body">
+                <ul id="files-list">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<!--capeta para ver las imagenes y el texto y esas cosas-->
+    <div class="file-viewer" id="fileViewer" style="display: none;">
+        <div class="file-viewer-content">
+            <span id="file-viewer-close" class="file-viewer-close">&times;</span>
+            <div id="file-viewer-body"></div>
+        </div>
+    </div>
+
+<!--Tienda-->
+    <div class="ubuntu-store" id="storeModal" style="display: none;">
+
+<!--Encabezado para arrastrar -->
+    <div class="store-modal-header" style="padding: 10px; background: #ddd; border-radius: 8px 8px 0px 0px;">
+        <span>Tienda Ubuntu</span>
+        <span id="store-modal-close" class="store-close-button">&times;</span>
+    </div>
+
+<!--destacada -->
+    <br>
+    <div class="featured-app">
+        <div class="featured-content">
+            <img src="assets/img/icons/VLC.png" alt="VLC" class="featured-logo">
+            <div class="featured-info">
+                <h1>VLC Media Player</h1>
+                <p class="featured-subtitle">Reproductor multimedia definitivo</p>
+                <div class="featured-badges">
+                    <span class="badge orange">Multimedia</span>
+                    <span class="badge purple">Open Source</span>
+                </div>
+                <button class="install-button">Instalar</button>
+            </div>
+        </div>
+    </div>
+
+<!--Categorías-->
+    <div class="categories-bar">
+        <nav>
+            <a href="#" class="active" data-category="todo">Todo</a>
+            <a href="#" data-category="sonido-video">Sonido y video</a>
+            <a href="#" data-category="comunicacion">Comunicación</a>
+            <a href="#" data-category="productividad">Productividad</a>
+            <a href="#" data-category="juegos">Juegos</a>
+            <a href="#" data-category="graficos">Gráficos</a>
+        </nav>
+    </div>
+<!--Grid de aplicaciones--> 
+    <div class="app-grid-container">
+        <h2 class="section-title">Selecciones de los editores</h2>
+        <div class="app-grid">
+<!--Tarjeta de Discord -->
+            <div class="app-card" data-category="comunicacion">
+                <div class="app-icon" style="background-color: #ddf6ff;">
+                    <img src="assets/img/icons/Discord.png" alt="Discord">
+                </div>
+                <h3>Discord</h3>
+                <p class="app-description">Llamadas y mensajería</p>
+                <button class="install-button-small">Instalar</button>
+            </div>
+            
+<!--Tarjeta de Spotify -->
+            <div class="app-card" data-category="sonido-video">
+                <div class="app-icon" style="background-color: #acffc9;">
+                    <img src="assets/img/icons/spotify.png" alt="Spotify">
+                </div>
+                <h3>Spotify</h3>
+                <p class="app-description">Música y podcasts</p>
+                <button class="install-button-small">Instalar</button>
+            </div>
+
+<!--Tarjeta de Tetris -->
+            <div class="app-card" data-category="juegos">
+                <div class="app-icon" style="background-color: #303030;">
+                    <img src="assets/img/icons/tetris.png" alt="Tetris">
+                </div>
+                <h3>Tetris</h3>
+                <p class="app-description">Juego clásico de bloques</p>
+                <button class="install-button-small">Instalar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <!--Spotify-->
+    <div class="spotify-modal" id="spotifyModal" style="display: none;">
+        <div class="spotify-modal-header">
+            <span class="app-title">Spotify</span>
+            <span id="spotify-close" class="spotify-close">&times;</span>
+        </div>
+        <div class="spotify-modal-body">
+        </div>
+    </div>
+
+    <!--Discord-->
+    <div class="discord-modal" id="discordModal">
+        <div class="discord-modal-header">
+            <span class="server-name">Discord</span>
+            <span id="discord-close" class="discord-close">&times;</span>
+        </div>
+        
+        <div class="discord-modal-body">
+    <!--Servers-->
+            <div class="servers-sidebar">
+                <div class="server-icon active"><img src="assets/img/icons/bot.png" alt="Avatar" class="user-avatar" /></div>
+                <div class="server-icon"><img src="assets/img/icons/botr.png" alt="Avatar" class="user-avatar" /></div>
+            </div>
+
+    <!--Canales-->
+            <div class="channels-sidebar">
+                <div class="channels-top">
+                    <div class="channels-header">
+                        <span>Canales</span>
+                    </div>
+                    <div class="channels-list">
+                        <div class="channel active"># general</div>
+                        <div class="channel"># preguntas y respuestas</div>
+                    </div>
+                </div>
+    <!--info del usuario-->
+                <div class="user-info">
+                    <img src="assets/img/icons/mmm.png" alt="Avatar" class="user-avatar" />
+                    <div class="user-details">
+                        <span class="username">m_anum</span>
+                        <span class="status">Online</span>
+                    </div>
+                </div>
+            </div>
+    <!--chat-->
+            <div class="main-chat">
+                <div class="chat-messages">
+                </div>
+                <div class="chat-input-container">
+                    <input class="chat-input" type="text" placeholder="Escribe un mensaje...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elemento para la cortinilla -->
+    <div id="curtain"></div>
+
+    <!-- Modal con las aplicaciones -->
+    <div class="apps-modal" id="appsModal">
+
+        <div class="apps-container">
+
+            <div class="apps-header-inline">
+                <img src="assets/img/content/interfaz.png" class="apps-header2" alt="Fondo Ubuntu2">            
+                <img src="assets/img/content/interfaz.png" class="apps-header" alt="Fondo Ubuntu">
+                <img src="assets/img/content/interfaz.png" class="apps-header3" alt="Fondo Ubuntu3">
+            </div>
+
+            <!-- Grilla de aplicaciones -->
+            <div class="apps-grid">
+                <div class="app-item">
+                    <img src="assets/img/icons/Firefox.png" alt="Navegador">
+                    <p>Navegador</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/tarea.png" alt="Tareas">
+                    <p>Tareas</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/carpeta.png" alt="Carpeta">
+                    <p>Carpeta</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/tienda.png" alt="Tienda">
+                    <p>Tienda</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/calculadora.png" alt="Calculadora">
+                    <p>Calculadora</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/spotify.png" alt="Spotify">
+                    <p>Spotify</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/Discord.png" alt="Discord">
+                    <p>Discord</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/snake.png" alt="Snake">
+                    <p>Snake</p>
+                </div>
+                <div class="app-item">
+                    <img src="assets/img/icons/tetris.png" alt="Tetris">
+                    <p>Tetris</p>
+                </div>
+                <div class="app-item" id="settingsApp">
+                    <img src="assets/img/icons/ajustes.png" alt="Configuración">
+                    <p>Configuración</p>
+                </div>
+                <div class="app-item" id="monitorApp">
+                    <img src="assets/img/icons/monitor.png" alt="Monitor del sistema">
+                    <p>Monitor del sistema</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="calculadora-modal" id="calculadoraModal" style="display: none;">
+        <div class="calculadora-header" id="calculadoraHeader">
+            <img src="assets/img/icons/calculadora.png" alt="Calculadora" class="calculadora-logo">
+            <span>Calculadora</span>
+            <span id="calculadoraClose" class="calculadora-close">&times;</span>
+        </div>
+        <div class="calculadora-body">
+            <input type="text" id="calculadoraDisplay" readonly>
+            <div class="calculadora-row">
+                <button class="calculadora-button operador" onclick="limpiar()">C</button>
+                <button class="calculadora-button operador" onclick="agregarNumero('(')">(</button>
+                <button class="calculadora-button operador" onclick="agregarNumero(')')">)</button>
+                <button class="calculadora-button operador" onclick="agregarNumero('/')">÷</button>
+            </div>
+            <div class="calculadora-row">
+                <button class="calculadora-button" onclick="agregarNumero('7')">7</button>
+                <button class="calculadora-button" onclick="agregarNumero('8')">8</button>
+                <button class="calculadora-button" onclick="agregarNumero('9')">9</button>
+                <button class="calculadora-button operador" onclick="agregarNumero('*')">×</button>
+            </div>
+            <div class="calculadora-row">
+                <button class="calculadora-button" onclick="agregarNumero('4')">4</button>
+                <button class="calculadora-button" onclick="agregarNumero('5')">5</button>
+                <button class="calculadora-button" onclick="agregarNumero('6')">6</button>
+                <button class="calculadora-button operador" onclick="agregarNumero('-')">−</button>
+            </div>
+            <div class="calculadora-row">
+                <button class="calculadora-button" onclick="agregarNumero('1')">1</button>
+                <button class="calculadora-button" onclick="agregarNumero('2')">2</button>
+                <button class="calculadora-button" onclick="agregarNumero('3')">3</button>
+                <button class="calculadora-button operador" onclick="agregarNumero('+')">+</button>
+            </div>
+            <div class="calculadora-row">
+                <button class="calculadora-button" onclick="agregarNumero('0')">0</button>
+                <button class="calculadora-button operador" onclick="agregarNumero('.')">.</button>
+                <button class="calculadora-button igual" onclick="calcular()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="snake-modal" id="snakeModal" style="display: none;">
+        <div class="snake-header" id="snakeHeader">
+            <img src="assets/img/icons/snake.png" alt="Snake" class="snake-logo">
+            <span id="snakeClose" class="snake-close">&times;</span>
+        </div>
+        <div class="snake-body">
+            <div class="snake-scoreboard">
+                <span class="snake-score-label"></span>
+                <span class="snake-score-value" id="snakeScore"></span>
+
+            </div>
+            <canvas id="snakeCanvas" width="320" height="320"></canvas>
+            <div class="snake-controls">
+                <div class="snake-controls-keys">
+                    <div class="snake-controls-row">
+                        <span class="snake-controls-desc">Mover</span>                    
+                        <kbd>W</kbd>
+                        <kbd>A</kbd>
+                        <kbd>S</kbd>
+                        <kbd>D</kbd>
+                        <span class="slash">/</span>
+                        <kbd>&uarr;</kbd>
+                        <kbd>&larr;</kbd>
+                        <kbd>&darr;</kbd>
+                        <kbd>&rarr;</kbd>
+                    </div>
+                    <div class="snake-controls-row">
+                        <span class="snake-controls-desc">Comenzar</span>                    
+                        <kbd>Espacio</kbd>
+                        <kbd>Enter</kbd>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tetris-modal window" id="tetrisModal" style="display: none; top: 120px; left: 120px;">
+        <div class="tetris-header" id="tetrisHeader">
+            <img src="assets/img/icons/tetris.png" alt="Tetris" class="window-logo">
+            <span>Tetris</span>
+            <span id="tetrisClose" class="window-close">&times;</span>
+        </div>
+        <div class="tetris-body" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="tetris-scoreboard">
+                <div class="score-label">Puntos</div>
+                <div class="score-value" id="tetrisScore">0</div>
+                <div class="record-label">Récord</div>
+                <div class="record-value" id="tetrisRecord">0</div>
+            </div>
+            <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+            <button id="tetrisStartBtn" class="tetris-btn">Comenzar</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de Configuración del Sistema -->
+    <div class="monitor-modal window" id="monitorModal" style="display: none;">
+    <div class="monitor-header" id="monitorHeader">
+        <span>Monitor del sistema</span>
+        <span id="monitor-close" class="monitor-close">&times;</span>
+    </div>
+    <div class="monitor-tabs">
+        <button class="monitor-tab active" data-tab="procesos">Procesos</button>
+        <button class="monitor-tab" data-tab="recursos">Recursos</button>
+        <button class="monitor-tab" data-tab="sistema">Sistema</button>
+    </div>
+    <div class="monitor-content">
+        <!-- Procesos -->
+        <div class="monitor-tab-content" id="monitor-procesos" style="display:block;">
+        <table class="monitor-procesos-table">
+            <thead>
+            <tr>
+                <th>Nombre</th><th>PID</th><th>CPU</th><th>RAM</th><th>Estado</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        </div>
+        <!-- Recursos -->
+        <div class="monitor-tab-content" id="monitor-recursos" style="display:none;">
+        <div class="monitor-resource">
+            <div class="monitor-resource-label">CPU</div>
+            <div class="monitor-bar-bg"><div class="monitor-bar-fill" id="monitorBarCPU"></div></div>
+            <span id="monitorCPUText" class="monitor-bar-text"></span>
+        </div>
+        <div class="monitor-resource">
+            <div class="monitor-resource-label">RAM</div>
+            <div class="monitor-bar-bg"><div class="monitor-bar-fill" id="monitorBarRAM"></div></div>
+            <span id="monitorRAMText" class="monitor-bar-text"></span>
+        </div>
+        <div class="monitor-resource">
+            <div class="monitor-resource-label">Red</div>
+            <div class="monitor-bar-bg"><div class="monitor-bar-fill" id="monitorBarNet"></div></div>
+            <span id="monitorNetText" class="monitor-bar-text"></span>
+        </div>
+        </div>
+        <!-- Sistema -->
+        <div class="monitor-tab-content" id="monitor-sistema" style="display:none;">
+        <ul class="monitor-sysinfo-list">
+            <li><b>Sistema operativo:</b> <span id="sysInfoOS">Ubuntu MMM 24.04</span></li>
+            <li><b>Versión kernel:</b> <span id="sysInfoKernel">Linux 6.8.12</span></li>
+            <li><b>Tiempo activo:</b> <span id="sysInfoUptime"></span></li>
+            <li><b>CPU:</b> <span id="sysInfoCPU">AMD Ryzen 7 5700U</span></li>
+            <li><b>RAM:</b> <span id="sysInfoRAM">16 GB</span></li>
+            <li><b>Almacenamiento:</b> <span id="sysInfoDisk">512 GB NVMe SSD</span></li>
+        </ul>
+        </div>
+    </div>
+    </div>
+
+
+
+
+    <div class="settings-modal window" id="settingsModal" style="display: none; top: 60px; left: 18vw;">
+        <div class="settings-modal-content">
+            <div class="settings-modal-header" id="settingsHeader">
+                <img src="assets/img/icons/ajustes.png" class="settings-logo" alt="Config">
+                <span>Configuración del Sistema</span>
+                <span id="settings-close" class="settings-close">&times;</span>
+            </div>
+            <div class="settings-modal-body">
+                <nav class="settings-sidebar">
+                    <ul>
+                        <li class="active" data-settings-section="general">
+                            General
+                        </li>
+                        <li data-settings-section="apariencia">
+                            Apariencia
+                        </li>
+                        <li data-settings-section="accesibilidad">
+                            Accesibilidad
+                        </li>
+                        <li data-settings-section="usuarios">
+                            Usuarios
+                        </li>
+                        <li data-settings-section="privacidad">
+                            Privacidad
+                        </li>
+                        <li data-settings-section="acerca">
+                            Acerca de
+                        </li>
+                    </ul>
+                </nav>
+                <section class="settings-main-content">
+                    <!-- General -->
+                    <div class="settings-section" id="settings-general">
+                        <h2><span class="section-icon">&#9881;</span> General</h2>
+                        <label>
+                            <span>Notificaciones</span>
+                            <input type="checkbox" id="toggle-notif"/>
+                        </label>
+                        <label>
+                            <span>Modo oscuro</span>
+                            <input type="checkbox" id="toggle-dark"/>
+                        </label>
+                        <label>
+                            <span>Idioma</span>
+                            <select id="language-selector">
+                                <option value="es">Español</option>
+                                <option value="en">Inglés</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Formato de hora</span>
+                            <select id="hour-format">
+                                <option value="24">24h</option>
+                                <option value="12">12h (AM/PM)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <!-- Apariencia -->
+                    <div class="settings-section" id="settings-apariencia" style="display:none">
+                        <label>
+                            <span>Tamaño de fuente</span>
+                            <input type="range" min="12" max="26" value="16" id="font-size-range">
+                        </label>
+                        <h2><span class="section-icon"></span> Texto de muestra</h2>
+                    </div>
+                    <!-- Accesibilidad -->
+                    <div class="settings-section" id="settings-accesibilidad" style="display:none">
+                        <label>
+                            <span>Alto contraste</span>
+                            <input type="checkbox" id="toggle-contrast"/>
+                        </label>
+                    </div>
+                    <!-- Usuarios (nuevo) -->
+                    <div class="settings-section" id="settings-usuarios" style="display:none">
+                        <div class="user-list" id="user-list">
+                            <div class="user-card">
+                                <img src="assets/img/icons/mmm.png" alt="mmm" class="user-avatar">
+                                <div class="user-meta">
+                                    <span class="user-name">mmm</span>
+                                    <span class="user-type">Usuario principal</span>
+                                </div>
+                                <button class="user-btn" disabled>Activo</button>
+                            </div>
+                            <!-- Aquí se insertarán más usuarios dinámicamente -->
+                        </div>
+                        <form id="add-user-form" class="add-user-form" style="margin-top: 14px;">
+                            <b>Nuevo Usuario</b><br>
+                            <input type="text" id="username" placeholder="Nombre de usuario" required>
+                            <input type="email" id="useremail" placeholder="Email" required>
+                            <input type="password" id="userpassword" placeholder="Contraseña" required minlength="4">
+                            <select id="usertype" required>
+                                <option value="">Tipo de usuario...</option>
+                                <option value="Usuario principal">Principal</option>
+                                <option value="Invitado">Invitado</option>
+                                <option value="Limitado">Limitado</option>
+                            </select>
+                            <button type="submit">Añadir usuario</button>
+                            <span id="user-error" style="color:red; font-size:1em; display:none;"></span>
+                        </form>
+                    </div>
+                    <!-- Privacidad -->
+                    <div class="settings-section" id="settings-privacidad" style="display:none">
+                        <h2><span class="section-icon"></span> Privacidad</h2>
+                        <label>
+                            <span>Bloquear capturas de pantalla</span>
+                            <input type="checkbox" id="block-screenshots"/>
+                        </label>
+                        <label>
+                            <span>Permitir acceso a la cámara</span>
+                            <input type="checkbox" id="allow-camera"/>
+                        </label>
+                    </div>
+                    <!-- Acerca de -->
+                    <div class="settings-section" id="settings-acerca" style="display:none">
+                        <h2><span class="section-icon"></span> Acerca de</h2>
+                        <p style="font-size: 24px;">Sistema Ubuntu MMM<br><br>Versión: 1.0<br><br>Desarrollado por mmirandamartinez.com</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript de comportamiento de apps -->
+    <script src="assets/js/tarea.js"></script>
+    <script src="assets/js/terminal.js"></script>
+    <script src="assets/js/navegador.js"></script>
+    <script src="assets/js/carpeta.js"></script>
+    <script src="assets/js/calendario.js"></script>
+    <script src="assets/js/power.js"></script>
+    <script src="assets/js/tienda.js"></script>
+    <script src="assets/js/discord.js"></script>
+    <script src="assets/js/spotify.js"></script>
+    <script src="assets/js/apps.js"></script>
+    <script src="assets/js/calculadora.js"></script>
+    <script src="assets/js/snake.js"></script>
+    <script src="assets/js/tetris.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/monitor.js"></script>
+</body>
+</html>

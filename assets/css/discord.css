@@ -1,0 +1,250 @@
+.discord-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    background: #36393f;
+    border-radius: 8px;
+    display: none;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.discord-modal-header {
+    padding: 15px 20px;
+    background: #202225;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+    cursor: move;
+    user-select: none;
+}
+
+.server-name {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.discord-close {
+    color: #b9bbbe;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.discord-close:hover {
+    color: #fff;
+}
+
+/* Cuerpo del modal */
+.discord-modal-body {
+    display: flex;
+    height: calc(100% - 50px);
+}
+
+/* Servers sidebar */
+.servers-sidebar {
+    width: 72px;
+    background: #202225;
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border-right: 1px solid #000;
+}
+
+.server-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #36393f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #dcddde;
+}
+
+.server-icon.active {
+    background: #7289da;
+    border-radius: 16px;
+}
+
+.server-icon:hover {
+    border-radius: 16px;
+    background: #7289da;
+}
+
+/* Channels sidebar */
+.channels-sidebar {
+    width: 240px;
+    background: #2f3136;
+    padding: 15px;
+    border-right: 1px solid #202225;
+    color: #8e9297;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.channels-header {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.channel {
+    padding: 8px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    transition: all 0.2s;
+    color: #8e9297;
+}
+
+.channel.active {
+    background: #36393f;
+    color: #fff;
+}
+
+.channel:hover {
+    background: #36393f;
+    color: #fff;
+}
+
+/* Nueva sección de info de usuario en la parte inferior */
+.user-info {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #202225;
+}
+
+.user-info .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-details .username {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.user-details .status {
+    color: #00ff00;
+    font-size: 0.75rem;
+}
+
+/* Área de chat principal */
+.main-chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.username {
+    color: #fff;
+    font-weight: 500;
+}
+
+.timestamp {
+    color: #72767d;
+    font-size: 0.75rem;
+}
+
+.message-text {
+    color: #dcddde;
+    line-height: 1.4;
+}
+
+/* Input de mensaje */
+.chat-input-container {
+    padding: 20px;
+    background: #40444b;
+    border-top: 1px solid #202225;
+}
+
+.chat-input {
+    width: 95%;
+    padding: 12px 16px;
+    background: #40444b;
+    border: none;
+    border-radius: 8px;
+    color: #dcddde;
+    font-size: 1rem;
+}
+
+.chat-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #7289da;
+}
+
+/* Default questions section */
+.default-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #40444b;
+}
+
+.default-question {
+    background: #7289da;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.default-question:hover {
+    background: #5b6eae;
+}

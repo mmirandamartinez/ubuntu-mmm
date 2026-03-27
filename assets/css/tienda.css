@@ -1,0 +1,174 @@
+
+.ubuntu-store {
+    position: fixed;
+    top: 53%;
+    left: 550px;
+    transform: translateY(-50%);
+    max-width: 1200px;
+    padding: 20px;
+    width: 40vw;
+    font-family: 'Ubuntu', sans-serif;
+    background: #f7f7f7;
+}
+
+
+.store-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.store-close-button:hover {
+    color: red;
+}
+
+
+.featured-app {
+    background: linear-gradient(145deg, #2c001e 0%, #5e2750 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.featured-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.featured-logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+}
+
+.featured-info h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.featured-subtitle {
+    font-size: 1.2rem;
+    color: #cdcdcd;
+}
+
+.categories-bar {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.categories-bar nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.categories-bar a {
+    text-decoration: none;
+    color: #666;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.categories-bar a.active {
+    background: #dd4814;
+    color: white;
+}
+
+.app-grid-container {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem 0;
+}
+
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.app-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    margin: 0 auto 1rem;
+    padding: 15px;
+}
+
+.app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+.install-button {
+    background: #dd4814;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.install-button-small {
+    background: #dd4814;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+.orange { background: #dd4814; color: white; }
+.purple { background: #5e2750; color: white; }
+
+.store-modal-header {
+    cursor: move;
+    user-select: none; 
+    position: relative;
+}
+

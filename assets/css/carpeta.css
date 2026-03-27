@@ -1,0 +1,110 @@
+.files-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    max-height: 80%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    z-index: 4000;
+    font-family: "Ubuntu", sans-serif;
+    border-radius: 20px 20px 10px 10px; 
+
+}
+
+.files-modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.files-modal-header {
+    background: #2d3436;
+    border-radius: 0px 0px 0px 0px; 
+    color: #fff;
+    padding: 13px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.files-close {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.files-close:hover {
+    color: red;
+}
+
+.files-modal-body {
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#files-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#files-list li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+#files-list li:hover {
+    background-color: #dfe6e9;
+}
+
+#files-list li.back-folder {
+    font-style: italic;
+    color: #555;
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+#files-list li.folder {
+    font-weight: bold;
+}
+
+
+.file-viewer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-viewer-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    position: relative;
+}
+
+.file-viewer-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    cursor: pointer;
+}

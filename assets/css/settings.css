@@ -1,0 +1,344 @@
+.settings-modal.window {
+    position: fixed;
+    top: 90px;
+    left: 200px;
+    z-index: 5005;
+    background: none;
+    width: auto;
+    height: auto;
+    display: none;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+.settings-modal.window[style*='display: flex'] {
+    display: flex !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.settings-modal-content {
+    background: #23272e;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px #000a;
+    width: 500px;
+    max-width: 96vw;
+    min-width: 300px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.settings-modal-header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #333 100%);
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: move;
+    border-radius: 10px 10px 0 0;
+    user-select: none;
+}
+
+.settings-logo {
+    width: 26px;
+    height: 26px;
+    margin-right: 10px;
+}
+
+.settings-close {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.2s;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.settings-close:hover {
+    color: #ff5252;
+}
+
+.settings-modal-body {
+    display: flex;
+    min-height: 360px;
+    background: #1e2027;
+}
+
+.settings-sidebar {
+    width: 150px;
+    background: #1e2027;
+    padding: 16px 0;
+    border-right: 1px solid #9c27b044;
+    flex-shrink: 0;
+}
+
+.settings-sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.settings-sidebar li {
+    padding: 11px 20px;
+    cursor: pointer;
+    color: #ccc;
+    font-size: 0.92rem;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s;
+}
+
+.settings-sidebar li:hover {
+    background: #2a2d35;
+    color: #fff;
+}
+
+.settings-sidebar li.active {
+    background: #2a2d35;
+    color: #9c27b0;
+    border-left: 3px solid #9c27b0;
+    font-weight: 600;
+}
+
+.settings-main-content {
+    flex: 1;
+    padding: 22px;
+    overflow-y: auto;
+    background: #23272e;
+    color: #fff;
+}
+
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.settings-section h2 {
+    color: #9c27b0;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #9c27b033;
+}
+
+.settings-section label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0;
+    color: #ccc;
+    font-size: 0.93rem;
+}
+
+.settings-section input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #9c27b066;
+    border-radius: 4px;
+    background: #1e2027;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.settings-section input[type="checkbox"]:checked {
+    background: #9c27b0;
+    border-color: #9c27b0;
+}
+
+.settings-section input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: #fff;
+    font-size: 11px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.settings-section input[type="range"] {
+    -webkit-appearance: none;
+    width: 180px;
+    height: 4px;
+    background: #9c27b066;
+    border-radius: 2px;
+    outline: none;
+}
+
+.settings-section input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #9c27b0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.settings-section label > select {
+    background: #1e2027;
+    color: #eee;
+    border: 1px solid #9c27b066;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.93rem;
+    cursor: pointer;
+    transition: border 0.2s;
+}
+
+.settings-section label > select:focus {
+    border-color: #9c27b0;
+    outline: none;
+}
+
+/* Usuarios */
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: #1e2027;
+    border-radius: 8px;
+    border: 1px solid #9c27b033;
+    transition: border 0.2s;
+}
+
+.user-card:hover {
+    border-color: #9c27b077;
+}
+
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 14px;
+    border: 2px solid #9c27b044;
+}
+
+.user-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.user-type, .user-email {
+    color: #aaa;
+    font-size: 0.82rem;
+}
+
+.user-btn {
+    padding: 6px 14px;
+    background: #2a2d35;
+    color: #aaa;
+    border: 1px solid #9c27b033;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.user-btn:hover:not([disabled]) {
+    background: #9c27b0;
+    color: #fff;
+    border-color: #9c27b0;
+}
+
+.add-user-form {
+    background: #1e2027;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #9c27b033;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.add-user-form b {
+    color: #9c27b0;
+    font-size: 0.95rem;
+}
+
+.add-user-form input,
+.add-user-form select {
+    background: #23272e;
+    border: 1px solid #9c27b044;
+    color: #eee;
+    border-radius: 5px;
+    padding: 7px 12px;
+    font-size: 0.93rem;
+    transition: border 0.2s;
+}
+
+.add-user-form input:focus,
+.add-user-form select:focus {
+    border-color: #9c27b0;
+    outline: none;
+}
+
+.add-user-form button[type="submit"] {
+    background: linear-gradient(90deg, #9c27b0 60%, #ba68c8 100%);
+    color: #fff;
+    padding: 8px 0;
+    font-weight: 700;
+    font-size: 0.97rem;
+    border: none;
+    border-radius: 6px;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px #0003;
+}
+
+.add-user-form button[type="submit"]:hover {
+    background: linear-gradient(90deg, #7b1fa2 60%, #ce93d8 100%);
+    transform: scale(1.02);
+}
+
+#user-error {
+    color: #ff5252;
+    font-size: 0.88em;
+    font-weight: 600;
+    min-height: 13px;
+}
+
+
+@media (max-width: 600px) {
+    .settings-modal.window {
+        top: 20px;
+        left: 2vw;
+    }
+    .settings-modal-content {
+        width: 96vw;
+        min-width: unset;
+    }
+    .settings-sidebar {
+        width: 80px;
+    }
+    .settings-sidebar li {
+        font-size: 0.75rem;
+        padding: 10px 8px;
+    }
+}

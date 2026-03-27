@@ -1,0 +1,53 @@
+.calendar {
+    width: 300px;
+    border: 1px solid #000000;
+    padding: 10px;
+    font-family: "Ubuntu", sans-serif;
+    background-color: #ffffffb0;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.calendar-header .prev,
+.calendar-header .next {
+    cursor: pointer;
+    padding: 5px;
+    background: #6b398081;
+    color: #000000;
+    border-radius: 4px;
+}
+
+.calendar-header .month-year {
+    text-transform: capitalize;
+}
+
+.calendar-body table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-body th,
+.calendar-body td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #000000;
+}
+
+.calendar-body td {
+    height: 30px;
+    vertical-align: middle;
+}
+
+.current-day {
+    background: #6b398081;
+    color: #000000;
+    border-radius: 50%;
+}

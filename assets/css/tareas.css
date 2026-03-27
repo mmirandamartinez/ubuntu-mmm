@@ -1,0 +1,109 @@
+.tasks-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+    background: #ffffffbe;
+    color: rgb(0, 0, 0);
+    border: 1px solid #333;
+    border-radius: 0px 0px 20px 20px; 
+    display: none; 
+    z-index: 2000;
+    font-family: monospace;
+    height: auto;
+}
+
+.tasks-modal.active {
+    display: block;
+}
+
+.tasks-modal-header {
+    background: #ccad00f1;
+    padding: 10px;
+    cursor: move;
+    user-select: none;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tasks-modal-body {
+    padding: 10px;
+    overflow-y: auto;
+    background: #d1d1d12a;
+    border-radius: 0px 0px 20px 20px; 
+
+}
+
+.tasks-modal-body input {
+    width: 95%;
+    background: #111111d8;
+    color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px 10px 10px 10px; 
+    margin: 15px 0;
+}
+
+.tasks-close {
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tasks-close:hover {
+    color: red;
+}
+
+#tasks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;  
+}
+
+#tasks-list li {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 16px 0;
+    border-bottom: 1px solid #333333;
+}
+
+.task-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #333;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.task-checkbox.checked {
+    background-color: #ffcc25;
+    border: 1px solid #ffcc25;
+
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #000000;
+}
+.delete-btn {
+    margin-left: auto;
+    cursor: pointer;
+    color: #ff0000;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+.delete-btn:hover {
+    color: #cc0000;
+}
